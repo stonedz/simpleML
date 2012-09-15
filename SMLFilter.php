@@ -19,12 +19,13 @@ class SMLFilter extends AFilter {
      * @param string $language The default language 3 letter code (eng,fra,esp, ita...)
      */
     public function __construct($language="") {
-        $this->_defaultLanguage = $language;
+        // Add default language option in wordpress DB
+        add_option('simpleML_default_lang');
+
+        $language != "" ? $this->_defaultLanguage = $language : $this->_defaultLanguage = get_option('simpleML_default_lang');
     }
 
     public function loadPlugin() {
-        // Add default language option in wordpress DB
-        add_option('simpleML_default_lang');
 
         $this->registerGetVar('lng');
 
@@ -81,7 +82,7 @@ class SMLFilter extends AFilter {
             $lang =  $wp_query->query_vars['lng'];
         }
         else {
-            $lang = get_option('simpleML_default_lang');
+            $lang = $this->_defaultLanguage;
         }
 
         return $this->filterDOM($content, $lang);
@@ -99,12 +100,25 @@ class SMLFilter extends AFilter {
         $divs = $doc->getElementsByTagName('div');
         for($i=0; $i<$divs->length; $i++) {
             $id = $divs->item($i)->attributes->getNamedItem('class');
-            if($id && $id->value != 'simpleML_'.$lang && (substr($id->value,0,9)==='simpleML_')) {
-                $nodesToDelete[] = $divs->item($i);
+            if($id && substr($id->value,0,9) === 'simpleML_') {
+                $nodes[] = $divs->item($i);
+                if($id->value != 'simpleML_'.$lang && (substr($id->value,0,9)==='simpleML_')) {
+                    $nodesToDelete[] = $divs->item($i);
+                }
             }
         }
-        foreach($nodesToDelete as $n) {
-            $n->parentNode->removeChild($n);
+        // Check if we got an unknown lang code or no translation. Fallback to default lang if present
+        if (count($nodes) == count($nodesToDelete)) {
+            foreach($nodesToDelete as $n) {
+                if($n->attributes->getNamedItem('class')->value != 'simpleML_'.$this->_defaultLanguage) {
+                    $n->parentNode->removeChild($n);
+                }
+            }
+        }
+        else {
+            foreach($nodesToDelete as $n) {
+                $n->parentNode->removeChild($n);
+            }
         }
 
         $filteredText = $doc->saveHTML();
