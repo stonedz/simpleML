@@ -24,7 +24,8 @@ abstract class AFilter extends APlugin{
      * The callback function to be hooked to wordpress
      *
      * @abstract
+     * @param string $content Content to be filtered
      * @return mixed
      */
-    abstract public function filter();
+    abstract public function filter($content);
 }
