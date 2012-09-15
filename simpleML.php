@@ -14,12 +14,18 @@ Author URI: http://github.org/stonedz/simpleML
 License: GPL2
 */
 
-function parameter_queryvars( $qvars ) {
+include_once(dirname(__FILE__).'/SMLFilter.php');
+
+$plugin = new SMLFilter();
+$plugin->loadPlugin();
+
+/*function parameter_queryvars( $qvars ) {
     $qvars[] = 'lng';
     return $qvars;
 }
 
 function sml_filter($content) {
+
     global $wp_query;
     if (isset($wp_query->query_vars['lng'])) {
         $lang =  $wp_query->query_vars['lng'];
@@ -56,6 +62,12 @@ add_option('simpleML_default_lang');
 
 add_filter('query_vars', 'parameter_queryvars');
 add_filter('the_content', 'sml_filter');
+
+
+
+  */
+
+
   // create custom plugin settings menu
 add_action('admin_menu', 'simpleML_create_menu');
 
