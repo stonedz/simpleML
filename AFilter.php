@@ -19,4 +19,12 @@ abstract class AFilter extends APlugin{
          add_action($where, array($this,'filter'));
          return true;
      }
+
+    /**
+     * The callback function to be hooked to wordpress
+     *
+     * @abstract
+     * @return mixed
+     */
+    abstract public function filter();
 }
