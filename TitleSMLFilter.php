@@ -12,7 +12,7 @@ include_once(dirname(__FILE__).'/ASMLFilter.php');
 class TitleSMLFilter extends ASMLFilter
 {
     public function __construct($language="") {
-        parent::__consruct($language);
+        parent::init($language);
     }
 
     /**
@@ -30,6 +30,7 @@ class TitleSMLFilter extends ASMLFilter
             $lang = $this->_defaultLanguage;
         }
 
-        return $this->filterDOM($content, $lang)[0];
+        $tmpArray = $this->filterDOM($content, $lang);
+        return $tmpArray[0];
     }
 }

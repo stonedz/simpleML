@@ -12,7 +12,8 @@ include_once(dirname(__FILE__).'/ASMLFilter.php');
 class ContentSMLFilter extends ASMLFilter
 {
     public function __construct($language="") {
-        parent::__consruct($language);
+//        parent::__consruct($language);
+        parent::init($language);
     }
 
     /**
@@ -42,7 +43,8 @@ class ContentSMLFilter extends ASMLFilter
             $multilanguageFlagDiv .= '</p></div>';
         }
 
-        return $multilanguageFlagDiv.$this->filterDOM($content, $lang)[0];
+        $tmpArr = $this->filterDOM($content, $lang);
+        return $multilanguageFlagDiv.$tmpArr[0];
     }
 
     /**

@@ -26,6 +26,15 @@ abstract class ASMLFilter extends AFilter {
         $language != "" ? $this->_defaultLanguage = $language : $this->_defaultLanguage = get_option('simpleML_default_lang');
     }
 
+    public function init($language) {
+        // Add default language option in wordpress DB
+        add_option('simpleML_default_lang');
+        add_filter('the_content', 'do_shortcode');
+
+        $language != "" ? $this->_defaultLanguage = $language : $this->_defaultLanguage = get_option('simpleML_default_lang');
+
+    }
+
     /**
      * @param string $text The text to be filtered
      * @param string $lang 3 letter language code
@@ -46,7 +55,7 @@ abstract class ASMLFilter extends AFilter {
             }
         }
         // Check if we got an unknown lang code or no translation. Fallback to default lang if present
-        $deletedNodeClasses[] = arry();
+        $deletedNodeClasses[] = array();
 
         if (count($nodesToDelete) != 0 && count($nodes) == count($nodesToDelete)) {
             foreach($nodesToDelete as $n) {

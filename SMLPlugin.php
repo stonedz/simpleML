@@ -1,5 +1,7 @@
 <?php
 
+include_once(dirname(__FILE__).'/APlugin.php');
+include_once(dirname(__FILE__).'/IWrappableShorttag.php');
 include_once(dirname(__FILE__).'/ContentSMLFilter.php');
 include_once(dirname(__FILE__).'/TitleSMLFilter.php');
 
@@ -11,13 +13,13 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
 
     public function loadPlugin() {
         $this->registerGetVar('lng');
-        $this->createWrappingShortcode('simpleML',array('lang'=> $this->_defaultLanguage));
+        $this->createWrappingShortcode('simpleML',array('lang'=> get_option('simpleML_default_lang')));
 
         $filterContent = new ContentSMLFilter();
         $filterTitle = new TitleSMLFilter();
 
         $filterContent->registerFilter('the_content');
-        $filterTitle->registerContent('the_title');
+        $filterTitle->registerFilter('the_title');
     }
 
     public function loadAdmin() {
