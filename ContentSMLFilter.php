@@ -35,9 +35,9 @@ class ContentSMLFilter extends ASMLFilter
         $filteringReturn = $this->filterDOM($content, $lang);
 
         $multilanguageFlagDiv = '';
-        if(count($filteringReturn[1]) > 0){
+        if(array_unique($filteringReturn[1]) > 0){
             $multilanguageFlagDiv = '<div class="robots-nocontent">';
-            foreach($filteringReturn[1] as $currClassNames){
+            foreach(array_unique($filteringReturn[1]) as $currClassNames){
                 $multilanguageFlagDiv .= $this->addMutilanguageFlags($currClassNames);
             }
             $multilanguageFlagDiv .= '</div>';
