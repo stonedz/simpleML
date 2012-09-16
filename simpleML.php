@@ -14,8 +14,8 @@ Author URI: http://github.org/stonedz/simpleML
 License: GPL2
 */
 
-include_once(dirname(__FILE__).'/SMLFilter.php');
+include_once(dirname(__FILE__) . '/ASMLFilter.php');
 
-$SML_plugin = new SMLFilter();
+$SML_plugin = new ASMLFilter();
 $SML_plugin->loadPlugin();
 $SML_plugin->loadAdmin();
