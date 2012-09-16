@@ -1,6 +1,7 @@
 <?php
 
 include_once(dirname(__FILE__).'/AFilter.php');
+include_once(dirname(__FILE__).'/IWrappableShorttag.php');
 
 /**
  * Filters the output
@@ -8,7 +9,7 @@ include_once(dirname(__FILE__).'/AFilter.php');
  * @author andrea.tarocchi@gmail.com
  * @author paolo.fagni<at>gmail.com
  */
-class SMLFilter extends AFilter {
+class SMLFilter extends AFilter implements IWrappableShorttag{
 
     /**
      * @var string The default langauge, from db
@@ -21,6 +22,7 @@ class SMLFilter extends AFilter {
     public function __construct($language="") {
         // Add default language option in wordpress DB
         add_option('simpleML_default_lang');
+        add_filter('the_content', 'do_shortcode');
 
         $language != "" ? $this->_defaultLanguage = $language : $this->_defaultLanguage = get_option('simpleML_default_lang');
     }
@@ -28,7 +30,7 @@ class SMLFilter extends AFilter {
     public function loadPlugin() {
 
         $this->registerGetVar('lng');
-
+        $this->createWrappingShortcode('simpleML',array('lang'=> $this->_defaultLanguage));
         $this->registerFilter('the_content');
         $this->registerFilter('the_title');
     }
@@ -125,4 +127,7 @@ class SMLFilter extends AFilter {
         return $filteredText;
     }
 
+    public function wrapContent($content, $var) {
+        return '<div class="simpleML_'.$var.'"> '.$content.'</div>';
+    }
 }
