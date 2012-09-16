@@ -31,6 +31,7 @@ class SMLFilter extends AFilter implements IWrappableShorttag{
 
         $this->registerGetVar('lng');
         $this->createWrappingShortcode('simpleML',array('lang'=> $this->_defaultLanguage));
+//        $this->createWrappingShortcode('simpleML',array('lang'=> "eng"));
         $this->registerFilter('the_content');
         $this->registerFilter('the_title');
     }
@@ -123,7 +124,8 @@ class SMLFilter extends AFilter implements IWrappableShorttag{
             }
         }
 
-        $filteredText = $doc->saveHTML();
+//        $filteredText = $doc->saveHTML();
+        $filteredText = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
         return $filteredText;
     }
 

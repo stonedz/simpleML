@@ -44,7 +44,7 @@ abstract class APlugin {
     public function applyShortcode ($atts, $content = null) {
 
         extract(shortcode_atts($this->_attributes, $atts));
-        $keys = array_keys($this->attributes);
+        $keys = array_keys($this->_attributes);
 
         if($this instanceof IWrappableShorttag){
             return $this->wrapContent($content, $this->_attributes[$keys[0]]);
