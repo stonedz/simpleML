@@ -55,7 +55,7 @@ abstract class ASMLFilter extends AFilter {
             }
         }
         // Check if we got an unknown lang code or no translation. Fallback to default lang if present
-        $deletedNodeClasses[] = array();
+        $deletedNodeClasses = array();
 
         if (count($nodesToDelete) != 0 && count($nodes) == count($nodesToDelete)) {
             foreach($nodesToDelete as $n) {
