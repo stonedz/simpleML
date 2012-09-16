@@ -16,6 +16,6 @@ License: GPL2
 
 include_once(dirname(__FILE__).'/SMLFilter.php');
 
-$plugin = new SMLFilter();
-$plugin->loadPlugin();
-$plugin->loadAdmin();
+$SML_plugin = new SMLFilter();
+$SML_plugin->loadPlugin();
+$SML_plugin->loadAdmin();

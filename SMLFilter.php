@@ -89,6 +89,18 @@ class SMLFilter extends AFilter {
     }
 
     /**
+     * Create the post permalink for language in $undisplayedLanguae
+     *
+     * @param $undisplayedLanguae The undisplayed language
+     * @return string The post's permalink of undisplayed language
+     */
+    private function addMutilanguageFlags($undisplayedLanguae){
+        //TODO: verificare se siamo il primo parametro o no!!!
+        $multilanguageFlagLink = '<a href="'.the_permalink().'&lng='.$undisplayedLanguae.'">'.$undisplayedLanguae.'</a>';
+        return $multilanguageFlagLink;
+    }
+
+    /**
      * @param string $text The text to be filtered
      * @param string $lang 3 letter language code
      * @return string The filtered text
@@ -108,20 +120,28 @@ class SMLFilter extends AFilter {
             }
         }
         // Check if we got an unknown lang code or no translation. Fallback to default lang if present
-        if (count($nodes) == count($nodesToDelete)) {
+        $multilanguageFlagDiv = '';
+        if (/*count($nodesToDelete) != 0 &&*/ count($nodes) == count($nodesToDelete)) {
             foreach($nodesToDelete as $n) {
                 if($n->attributes->getNamedItem('class')->value != 'simpleML_'.$this->_defaultLanguage) {
                     $n->parentNode->removeChild($n);
+                    $multilanguageFlagDiv .= $this->addMutilanguageFlags($n);
                 }
             }
         }
-        else {
+        else /*if(count($nodesToDelete) != 0 && count($nodes) != count($nodesToDelete))*/ {
             foreach($nodesToDelete as $n) {
                 $n->parentNode->removeChild($n);
+                $multilanguageFlagDiv .= $this->addMutilanguageFlags($n);
             }
         }
 
         $filteredText = $doc->saveHTML();
+        // Create multilanguage flags
+//        if($multilanguageFlagDiv !== ''){
+//            $multilanguageFlagDiv = '<div class="robots-nocontent">'.$multilanguageFlagDiv.'</div>';
+//            $filteredText .= $multilanguageFlagDiv.$filteredText;
+//        }
         return $filteredText;
     }
 
