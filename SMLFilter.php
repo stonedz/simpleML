@@ -33,7 +33,7 @@ class SMLFilter extends AFilter implements IWrappableShorttag{
         $this->createWrappingShortcode('simpleML',array('lang'=> $this->_defaultLanguage));
 //        $this->createWrappingShortcode('simpleML',array('lang'=> "eng"));
         $this->registerFilter('the_content');
-        $this->registerFilter('the_title');
+//        $this->registerFilter('the_title');
     }
 
     public function loadAdmin() {
@@ -92,6 +92,19 @@ class SMLFilter extends AFilter implements IWrappableShorttag{
     }
 
     /**
+     * Create the post permalink for a given language (class name)
+     *
+     * @param $undisplayedLanguaeClass The undisplayed language class name
+     * @return string The post's permalink of undisplayed language
+     */
+    private function addMutilanguageFlags($undisplayedLanguaeClass){
+        //TODO: verificare se siamo il primo parametro o no!!!
+        $undisplayedLanguae = substr($undisplayedLanguaeClass,9,3);
+        $multilanguageFlagLink = '<a href="'.get_permalink().'&lng='.$undisplayedLanguae.'">'.$undisplayedLanguae.'</a> ';
+        return $multilanguageFlagLink;
+    }
+
+    /**
      * @param string $text The text to be filtered
      * @param string $lang 3 letter language code
      * @return string The filtered text
@@ -111,21 +124,28 @@ class SMLFilter extends AFilter implements IWrappableShorttag{
             }
         }
         // Check if we got an unknown lang code or no translation. Fallback to default lang if present
-        if (count($nodes) == count($nodesToDelete)) {
+        $multilanguageFlagDiv = '';
+        if (count($nodesToDelete) != 0 && count($nodes) == count($nodesToDelete)) {
             foreach($nodesToDelete as $n) {
                 if($n->attributes->getNamedItem('class')->value != 'simpleML_'.$this->_defaultLanguage) {
                     $n->parentNode->removeChild($n);
+                    $multilanguageFlagDiv .= $this->addMutilanguageFlags($n->attributes->getNamedItem('class')->value);
                 }
             }
         }
-        else {
+        else if(count($nodesToDelete) != 0 && count($nodes) != count($nodesToDelete)) {
             foreach($nodesToDelete as $n) {
                 $n->parentNode->removeChild($n);
+                $multilanguageFlagDiv .= $this->addMutilanguageFlags($n->attributes->getNamedItem('class')->value);
             }
         }
 
 //        $filteredText = $doc->saveHTML();
         $filteredText = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
+        if($multilanguageFlagDiv !== ''){
+            $multilanguageFlagDiv = '<div class="robots-nocontent"><p>'.$multilanguageFlagDiv.'</p></div>';
+            $filteredText = $multilanguageFlagDiv.$filteredText;
+        }
         return $filteredText;
     }
 
