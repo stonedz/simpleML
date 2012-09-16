@@ -44,7 +44,7 @@ abstract class ASMLFilter extends AFilter {
         $doc = new DOMDocument();
         $doc->validateOnParse = false;
         $doc->loadHTML($text);
-        $divs = $doc->getElementsByTagName('div');
+        $divs = $doc->getElementsByTagName('span');
         for($i=0; $i<$divs->length; $i++) {
             $id = $divs->item($i)->attributes->getNamedItem('class');
             if($id && substr($id->value,0,9) === 'simpleML_') {

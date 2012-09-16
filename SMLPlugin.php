@@ -27,7 +27,7 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
     }
 
     public function wrapContent($content, $var) {
-        return '<div class="simpleML_'.$var.'"> '.$content.'</div>';
+        return '<span class="simpleML_'.$var.'"> '.$content.'</span>';
     }
 
     public function create_menu() {
