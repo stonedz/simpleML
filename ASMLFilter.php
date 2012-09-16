@@ -30,6 +30,7 @@ abstract class ASMLFilter extends AFilter {
         // Add default language option in wordpress DB
         add_option('simpleML_default_lang');
         add_filter('the_content', 'do_shortcode');
+        add_filter('the_title', 'do_shortcode');
 
         $language != "" ? $this->_defaultLanguage = $language : $this->_defaultLanguage = get_option('simpleML_default_lang');
 

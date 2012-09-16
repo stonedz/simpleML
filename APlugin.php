@@ -42,12 +42,12 @@ abstract class APlugin {
      * @todo Error handling
      */
     public function applyShortcode ($atts, $content = null) {
-
-        extract(shortcode_atts($this->_attributes, $atts));
-        $keys = array_keys($this->_attributes);
+        $tmpArray = shortcode_atts($this->_attributes, $atts);
+        extract($tmpArray);
+        $keys = array_keys($tmpArray);
 
         if($this instanceof IWrappableShorttag){
-            return $this->wrapContent($content, $this->_attributes[$keys[0]]);
+            return $this->wrapContent($content, $tmpArray[$keys[0]]);
         }
         else {
             return false;
