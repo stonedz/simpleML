@@ -1,4 +1,7 @@
-A Wordpress traslation plugin
+*A Wordpress traslation plugin*
+
+*This plugin is currently under heavy development, it should be considered
+in alpha stage and not be used in production environments*
 
 This plugin allow to create a wordpress post in multiple languages
 and let the viewer to choose between the available languages.
