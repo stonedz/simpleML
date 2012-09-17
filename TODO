@@ -1,15 +1,5 @@
-TODO: find a way to add images (like languages flags).
-TODO: create tests!!!
-TODO: Add language buttons for the whole website
-TODO: Shortcode button in new post editor
-TODO: Drop down menu to choose default language in admin section
-TODO: Change <html lang="xxx"> with user selected language
-TODO: uninstall function
+TODOs -> https://github.com/stonedz/simpleML/issues?labels=enhancement
 
-NOTES:  porbabilmente se il titolo è solo testo quando parsi in html viene aggiunta tutta al sequenza di tag fino a <p>:
-        <html><header><body><p>testo del titolo</p>...
-        quindi nel titolo va filtrato anche il tag <p></p>
-        ho implementato dovrebbe fungere.
 
 SNIPPET:    $fh = fopen('/var/www/wordpress/debug2.txt', "w+");
             fwrite($fh, $tmpArray[0]);
