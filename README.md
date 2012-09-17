@@ -1,4 +1,4 @@
-_A Wordpress traslation plugin_
+__A Wordpress traslation plugin__
 
 *This plugin is currently under heavy development, it should be considered
 in alpha stage and not be used in production environments*
