@@ -20,6 +20,25 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
 
         $filterContent->registerFilter('the_content');
         $filterTitle->registerFilter('the_title');
+
+        add_action('init', array($this, 'addButton'));
+    }
+
+    public function addButton() {
+        if ( current_user_can('edit_posts') &&  current_user_can('edit_pages') ) {
+            add_filter('mce_external_plugins', array($this,'addPlugin'));
+            add_filter('mce_buttons', array($this,'registerButton'));
+        }
+    }
+
+    function addPlugin($plugin_array) {
+        $plugin_array['simpleML'] = get_bloginfo('wpurl').'/wp-content/plugins/simpleML/customShortCode.js';
+        return $plugin_array;
+    }
+
+    public function registerButton($buttons) {
+       array_push($buttons, "simpleML");
+       return $buttons;
     }
 
     public function loadAdmin() {
