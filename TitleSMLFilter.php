@@ -21,7 +21,7 @@ class TitleSMLFilter extends ASMLFilter
      * @param string $content The post's body to be filtered
      * @return string
      */
-    public function filter($content) {
+    public function filter($content,$sep='',$seplocation='right') {
         global $wp_query;
         if (isset($wp_query->query_vars['lng'])) {
             $lang =  $wp_query->query_vars['lng'];
