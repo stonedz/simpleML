@@ -17,9 +17,12 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
 
         $filterContent = new ContentSMLFilter();
         $filterTitle = new TitleSMLFilter();
+        //$filterWPTitle = new TitleSMLFilter();
 
         $filterContent->registerFilter('the_content');
         $filterTitle->registerFilter('the_title');
+        $filterTitle->registerFilter('single_post_title',0);
+        //$filterTitle->registerFilter('sanitize_title',0);
 
         add_action('init', array($this, 'addButton'));
     }
