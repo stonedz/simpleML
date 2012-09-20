@@ -17,7 +17,6 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
 
         $filterContent = new ContentSMLFilter();
         $filterTitle = new TitleSMLFilter();
-        //$filterWPTitle = new TitleSMLFilter();
 
         $filterContent->registerFilter('the_content');
         $filterTitle->registerFilter('the_title');
@@ -27,6 +26,9 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
         add_action('init', array($this, 'addButton'));
     }
 
+    /**
+     * Add a new button to the MCE editor
+     */
     public function addButton() {
         if ( current_user_can('edit_posts') &&  current_user_can('edit_pages') ) {
             add_filter('mce_external_plugins', array($this,'addPlugin'));
@@ -34,6 +36,12 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
         }
     }
 
+    /**
+     * Links the MCE button to a javascript function
+     *
+     * @param $plugin_array
+     * @return array
+     */
     function addPlugin($plugin_array) {
         $plugin_array['simpleML'] = get_bloginfo('wpurl').'/wp-content/plugins/simpleML/customShortCode.js';
         return $plugin_array;
@@ -44,12 +52,23 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
        return $buttons;
     }
 
-    public function loadAdmin() {
-        add_action('admin_menu', array($this, 'create_menu'));
-    }
-
+    /**
+     * Wraps the post content
+     *
+     * @param string $content
+     * @param string $var
+     * @return string Wrapped content
+     */
     public function wrapContent($content, $var) {
         return '<span class="simpleML_'.$var.'"> '.$content.'</span>';
+    }
+
+    ///////////////////////////////////
+    // ADMIN START
+    ///////////////////////////////////
+
+    public function loadAdmin() {
+        add_action('admin_menu', array($this, 'create_menu'));
     }
 
     public function create_menu() {
@@ -83,4 +102,8 @@ class SMLPlugin extends APlugin implements IWrappableShorttag {
         </div>
         <?php
     }
+
+    ///////////////////////////////////
+    // ADMIN STOP
+    ///////////////////////////////////
 }
