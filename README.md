@@ -39,7 +39,7 @@ In your post you can add [simpleML lang="xxx"][/simpleML] shortcodes
 
     This text will always be displayed
 
-For the title you have to specify a <span> tag for each language
+For the title you have to specify a \<span\> tag for each language
 
     <span class="simpleML_eng">English Title</span>
     <span class="simpleML_ita">Titolo italiano</span>
@@ -48,7 +48,7 @@ DEVELOPMENT
 -----------
 
 You can view the planned enhancements in the [issues](https://github.com/stonedz/simpleML/issues?labels=enhancement)
-page. Feel free to fill an feature request there if you have some ideas that could help improve
+page. Feel free to fill a feature request there if you have some ideas that could help improve
 the plugin.
 
 If you find a bug please let us know by filling a [new issue](https://github.com/stonedz/simpleML/issues/new)!
