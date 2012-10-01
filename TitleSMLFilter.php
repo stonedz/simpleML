@@ -30,6 +30,7 @@ class TitleSMLFilter extends ASMLFilter
             $lang = $this->_defaultLanguage;
         }
 
+        $content = do_shortcode($content);
         $tmpArray = $this->filterDOM($content, $lang);
         $tmpArray[0] = str_replace( array('<p>','</p>'), array('',''), $tmpArray[0]);
 

@@ -54,9 +54,16 @@ class ContentSMLFilter extends ASMLFilter
      * @return string The post's permalink of undisplayed language
      */
     private function addMutilanguageFlags($undisplayedLanguaeClass){
-        //TODO: verificare se siamo il primo parametro o no!!!
         $undisplayedLanguae = substr($undisplayedLanguaeClass,9,3);
-        $multilanguageFlagLink = '<a href="'.get_permalink().'&lng='.$undisplayedLanguae.'">'.$undisplayedLanguae.'</a> ';
+        $multilanguageFlagLink = '<a href="'.add_query_arg( 'lng',$undisplayedLanguae,get_permalink()).'">'.$undisplayedLanguae.'</a> ';
         return $multilanguageFlagLink;
+    }
+
+    private function appenParameter($url, $parameterName){
+        $urlAndParameter = $url;
+
+
+
+        return $urlAndParameter;
     }
 }
