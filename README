@@ -3,6 +3,14 @@ A Wordpress traslation plugin
 This plugin allow to create a wordpress post in multiple languages
 and let the viewer to choose between the available languages.
 
+WHY THIS PLUGIN
+---------------
+
+This plugin was created to manage multilanguage posting in an easy way.
+We follow two main guidelines:
+1) Don't use one different post for each language.
+2) Don't mess up with the db (if you uninstall the plugin you don't risk to lose contents).
+
 INSTALLATION
 ------------
 

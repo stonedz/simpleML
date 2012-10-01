@@ -6,6 +6,15 @@ in alpha stage and not be used in production environments*
 This plugin allow to create a wordpress post in multiple languages
 and let the viewer to choose between the available languages.
 
+WHY THIS PLUGIN
+---------------
+
+This plugin was created to manage multilanguage posting in an easy way.
+We follow two main guidelines:
+* Don't use one different post for each language.
+* Don't mess up with the db (if you uninstall the plugin you don't risk to lose contents).
+
+
 INSTALLATION
 ------------
 
